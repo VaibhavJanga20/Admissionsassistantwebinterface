@@ -31,17 +31,17 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[var(--neutral-200)] bg-white/98 backdrop-blur-sm supports-[backdrop-filter]:bg-white/95">
       <div className="container mx-auto px-4">
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className="flex h-24 items-center justify-between gap-5">
           {/* Logo and Branding */}
           <Link 
             to="/" 
-            className="flex items-center gap-4 group flex-shrink-0"
+            className="flex items-center gap-5 group flex-shrink-0"
             aria-label="SRM Institute Home"
           >
             <img 
               src="/images/srm-logo.jpg" 
               alt="SRM Institute Logo" 
-              className="h-16 w-16 object-contain"
+              className="h-20 w-20 object-contain"
             />
             <div className="flex flex-col">
               <span className="font-serif text-base leading-tight text-[var(--neutral-900)]" style={{ fontWeight: 600 }}>
