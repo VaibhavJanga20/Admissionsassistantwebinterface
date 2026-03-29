@@ -31,19 +31,26 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[var(--neutral-200)] bg-white/98 backdrop-blur-sm supports-[backdrop-filter]:bg-white/95">
       <div className="container mx-auto px-4">
-        <div className="flex h-14 items-center justify-between">
-          {/* Logo and Campus */}
+        <div className="flex h-20 items-center justify-between gap-4">
+          {/* Logo and Branding */}
           <Link 
             to="/" 
-            className="flex items-center gap-3 group"
-            aria-label="SRM Admissions Home"
+            className="flex items-center gap-4 group flex-shrink-0"
+            aria-label="SRM Institute Home"
           >
+            <img 
+              src="/images/srm-logo.jpg" 
+              alt="SRM Institute Logo" 
+              className="h-16 w-16 object-contain"
+            />
             <div className="flex flex-col">
-              <span className="font-serif text-lg tracking-tight text-[var(--neutral-800)] group-hover:text-[var(--srm-burgundy)] transition-colors" style={{ fontWeight: 600 }}>
-                Admissions Helper
+              <span className="font-serif text-base leading-tight text-[var(--neutral-900)]" style={{ fontWeight: 600 }}>
+                SRM Institute of Science and Technology
               </span>
-              <span className="flex items-center gap-1 text-[10px] font-semibold tracking-wide text-[var(--srm-teal)] uppercase">
-                Kattankulathur Campus
+              <span className="flex items-center gap-2 text-xs font-semibold tracking-wide text-[var(--neutral-600)]">
+                <span>ADMISSIONS HELPER</span>
+                <span className="text-[var(--neutral-300)]">•</span>
+                <span className="text-[var(--srm-burgundy)]">KATTANKULATHUR CAMPUS</span>
               </span>
             </div>
           </Link>
@@ -56,8 +63,8 @@ export function Header() {
                 to={item.path}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive(item.path)
-                    ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
-                    : "text-[var(--neutral-600)] hover:text-[var(--srm-navy)] hover:bg-[var(--neutral-100)]"
+                    ? "text-[var(--srm-burgundy)] bg-[var(--srm-burgundy)]/5"
+                    : "text-[var(--neutral-600)] hover:text-[var(--srm-burgundy)] hover:bg-[var(--neutral-100)]"
                 }`}
               >
                 {item.label}
@@ -68,8 +75,8 @@ export function Header() {
               to="/nav"
               className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                 isActive("/nav")
-                  ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
-                  : "text-[var(--neutral-500)] hover:text-[var(--srm-navy)] hover:bg-[var(--neutral-100)]"
+                  ? "text-[var(--srm-burgundy)] bg-[var(--srm-burgundy)]/5"
+                  : "text-[var(--neutral-500)] hover:text-[var(--srm-burgundy)] hover:bg-[var(--neutral-100)]"
               }`}
             >
               All Pages
@@ -121,7 +128,7 @@ export function Header() {
                   to={item.path}
                   className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.path)
-                      ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
+                      ? "text-[var(--srm-burgundy)] bg-[var(--srm-burgundy)]/5"
                       : "text-[var(--neutral-600)] hover:bg-[var(--neutral-100)]"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
@@ -133,7 +140,7 @@ export function Header() {
                 to="/nav"
                 className={`px-3 py-2.5 rounded-lg text-sm transition-colors ${
                   isActive("/nav")
-                    ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
+                    ? "text-[var(--srm-burgundy)] bg-[var(--srm-burgundy)]/5"
                     : "text-[var(--neutral-500)] hover:bg-[var(--neutral-100)]"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
