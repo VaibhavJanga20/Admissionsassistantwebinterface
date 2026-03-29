@@ -161,27 +161,29 @@ export function ChatPage() {
       <div className="flex flex-1 flex-col">
         {/* Chat Container */}
         <div className="flex-1 overflow-hidden">
-          <div className="container mx-auto h-full max-w-4xl px-4 py-8">
+          <div className="container mx-auto h-full max-w-3xl px-4 py-6 md:py-8">
             {messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center">
                 <div className="mb-8 text-center">
-                  <Sparkles className="mx-auto mb-4 h-12 w-12 text-[var(--srm-navy)]" />
-                  <h2 className="mb-2 font-serif text-2xl md:text-3xl text-[var(--srm-navy)]">
+                  <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--srm-navy)]/5">
+                    <Sparkles className="h-7 w-7 text-[var(--srm-navy)]" />
+                  </div>
+                  <h2 className="mb-2 font-serif text-2xl md:text-3xl text-[var(--srm-navy)]" style={{ fontWeight: 600 }}>
                     Ask Your Admission Question
                   </h2>
-                  <p className="text-[var(--neutral-600)]">
+                  <p className="text-sm text-[var(--neutral-500)]">
                     Get accurate answers from official SRM sources
                   </p>
                 </div>
 
-                <div className="w-full max-w-2xl">
-                  <p className="mb-4 text-sm text-[var(--neutral-600)]">Try asking:</p>
-                  <div className="grid gap-3 sm:grid-cols-2">
+                <div className="w-full max-w-xl">
+                  <p className="mb-3 text-xs font-medium text-[var(--neutral-500)] uppercase tracking-wide">Try asking</p>
+                  <div className="grid gap-2 sm:grid-cols-2">
                     {suggestedQuestions.map((question, index) => (
                       <button
                         key={index}
                         onClick={() => setInput(question)}
-                        className="rounded-lg border border-[var(--neutral-200)] bg-white p-4 text-left text-sm text-[var(--neutral-700)] transition-colors hover:border-[var(--srm-navy)] hover:text-[var(--srm-navy)]"
+                        className="group rounded-lg border border-[var(--neutral-200)] bg-white p-3.5 text-left text-sm text-[var(--neutral-700)] transition-all duration-200 hover:border-[var(--srm-navy)] hover:text-[var(--srm-navy)] hover:shadow-sm"
                       >
                         {question}
                       </button>
@@ -190,7 +192,7 @@ export function ChatPage() {
                 </div>
               </div>
             ) : (
-              <div className="space-y-6 pb-32">
+              <div className="space-y-5 pb-32">
                 {messages.map((message) => (
                   <div key={message.id}>
                     {message.type === "user" ? (
@@ -214,26 +216,27 @@ export function ChatPage() {
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-[var(--neutral-200)] bg-white">
-          <div className="container mx-auto max-w-4xl px-4 py-4">
+        <div className="border-t border-[var(--neutral-200)] bg-white shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+          <div className="container mx-auto max-w-3xl px-4 py-4">
             <div className="flex gap-3">
               <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Ask about admissions, fees, programs, placements..."
-                className="min-h-[60px] resize-none border-[var(--neutral-200)] bg-[var(--neutral-50)]"
+                className="min-h-[56px] resize-none border-[var(--neutral-200)] bg-[var(--neutral-50)] focus:bg-white focus:border-[var(--srm-navy)] transition-colors"
                 disabled={isLoading}
               />
               <Button
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isLoading}
-                className="bg-[var(--srm-navy)] hover:bg-[var(--srm-navy-light)] text-white self-end"
+                className="bg-[var(--srm-navy)] hover:bg-[var(--srm-navy-light)] text-white self-end h-11 w-11 p-0 shadow-sm hover:shadow transition-all duration-200"
+                aria-label="Send message"
               >
                 <Send className="h-5 w-5" />
               </Button>
             </div>
-            <p className="mt-2 text-xs text-[var(--neutral-500)]">
+            <p className="mt-2 text-xs text-[var(--neutral-400)]">
               Press Enter to send, Shift + Enter for new line
             </p>
           </div>
@@ -246,8 +249,8 @@ export function ChatPage() {
 function UserMessage({ content }: { content: string }) {
   return (
     <div className="flex justify-end">
-      <div className="max-w-[80%] rounded-lg bg-[var(--srm-navy)] px-4 py-3 text-white">
-        <p className="whitespace-pre-wrap text-sm leading-relaxed">{content}</p>
+      <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl rounded-br-md bg-[var(--srm-navy)] px-4 py-3 shadow-sm">
+        <p className="whitespace-pre-wrap text-sm leading-relaxed text-white">{content}</p>
       </div>
     </div>
   );
@@ -262,27 +265,30 @@ function AssistantMessage({
   sources?: Source[];
   confidence?: "high" | "medium" | "low";
 }) {
-  const [sourcesExpanded, setSourcesExpanded] = useState(false);
+  const [sourcesExpanded, setSourcesExpanded] = useState(true);
 
   const confidenceConfig = {
-    high: { label: "High Confidence", color: "var(--confidence-high)" },
-    medium: { label: "Medium Confidence", color: "var(--confidence-medium)" },
-    low: { label: "Low Confidence", color: "var(--confidence-low)" },
+    high: { label: "High Confidence", color: "var(--confidence-high)", bg: "rgba(5, 150, 105, 0.08)" },
+    medium: { label: "Medium Confidence", color: "var(--confidence-medium)", bg: "rgba(245, 158, 11, 0.08)" },
+    low: { label: "Low Confidence", color: "var(--confidence-low)", bg: "rgba(220, 38, 38, 0.08)" },
   };
 
   const confidenceInfo = confidence ? confidenceConfig[confidence] : null;
 
   return (
     <div className="flex justify-start">
-      <div className="max-w-[85%] rounded-lg border border-[var(--neutral-200)] bg-white p-5">
+      <div className="max-w-[90%] sm:max-w-[85%] rounded-2xl rounded-bl-md border border-[var(--neutral-200)] bg-white p-4 sm:p-5 shadow-sm">
         {/* Confidence Indicator */}
         {confidenceInfo && (
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[var(--neutral-50)] px-3 py-1 text-xs">
+          <div 
+            className="mb-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium"
+            style={{ backgroundColor: confidenceInfo.bg, color: confidenceInfo.color }}
+          >
             <div
-              className="h-2 w-2 rounded-full"
+              className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: confidenceInfo.color }}
             />
-            <span style={{ color: confidenceInfo.color }}>{confidenceInfo.label}</span>
+            {confidenceInfo.label}
           </div>
         )}
 
@@ -295,46 +301,46 @@ function AssistantMessage({
 
         {/* Sources */}
         {sources && sources.length > 0 && (
-          <div className="mt-4 border-t border-[var(--neutral-200)] pt-4">
+          <div className="mt-4 border-t border-[var(--neutral-100)] pt-3">
             <button
               onClick={() => setSourcesExpanded(!sourcesExpanded)}
-              className="flex w-full items-center justify-between text-sm font-medium text-[var(--srm-navy)] hover:text-[var(--srm-navy-light)]"
+              className="flex w-full items-center justify-between text-xs font-medium text-[var(--srm-navy)] hover:text-[var(--srm-navy-light)] transition-colors"
             >
-              <span className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
+              <span className="flex items-center gap-1.5">
+                <FileText className="h-3.5 w-3.5" />
                 {sources.length} Source{sources.length > 1 ? "s" : ""}
               </span>
               {sourcesExpanded ? (
-                <ChevronUp className="h-4 w-4" />
+                <ChevronUp className="h-3.5 w-3.5" />
               ) : (
-                <ChevronDown className="h-4 w-4" />
+                <ChevronDown className="h-3.5 w-3.5" />
               )}
             </button>
 
             {sourcesExpanded && (
-              <div className="mt-3 space-y-2">
+              <div className="mt-2.5 space-y-2">
                 {sources.map((source, index) => (
                   <a
                     key={index}
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-3 rounded-md border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3 transition-colors hover:border-[var(--srm-navy)]"
+                    className="group flex items-start gap-2.5 rounded-lg border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-2.5 transition-all duration-200 hover:border-[var(--srm-navy)] hover:bg-white"
                   >
-                    <div className="mt-0.5">
+                    <div className="mt-0.5 flex-shrink-0">
                       {source.type === "pdf" ? (
                         <FileText className="h-4 w-4 text-[var(--srm-terracotta)]" />
                       ) : (
                         <ExternalLink className="h-4 w-4 text-[var(--srm-navy)]" />
                       )}
                     </div>
-                    <div className="flex-1">
-                      <p className="text-xs font-medium text-[var(--neutral-900)]">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-[var(--neutral-800)] group-hover:text-[var(--srm-navy)] transition-colors truncate">
                         {source.title}
                       </p>
                       {source.lastUpdated && (
-                        <p className="mt-1 text-xs text-[var(--neutral-500)]">
-                          Last updated: {source.lastUpdated}
+                        <p className="mt-0.5 text-[10px] text-[var(--neutral-500)]">
+                          Updated {source.lastUpdated}
                         </p>
                       )}
                     </div>
@@ -352,23 +358,23 @@ function AssistantMessage({
 function CannotAnswerMessage({ content }: { content: string }) {
   return (
     <div className="flex justify-start">
-      <div className="max-w-[85%] rounded-lg border-2 border-[var(--srm-amber)] bg-[#FFF8F0] p-5">
+      <div className="max-w-[90%] sm:max-w-[85%] rounded-2xl rounded-bl-md border border-[var(--srm-amber)]/30 bg-[var(--srm-amber)]/5 p-4 sm:p-5">
         <div className="mb-3 flex items-center gap-2 text-[var(--srm-amber-dark)]">
-          <AlertCircle className="h-5 w-5" />
-          <span className="text-sm" style={{ fontWeight: 600 }}>
+          <AlertCircle className="h-4 w-4" />
+          <span className="text-xs font-semibold uppercase tracking-wide">
             Cannot Answer from Official Sources
           </span>
         </div>
 
-        <p className="mb-4 text-sm leading-relaxed text-[var(--neutral-800)]">{content}</p>
+        <p className="mb-4 text-sm leading-relaxed text-[var(--neutral-700)]">{content}</p>
 
-        <div className="space-y-3 rounded-lg border border-[var(--neutral-200)] bg-white p-4">
-          <p className="text-xs font-medium text-[var(--neutral-700)]">
-            Official SRM Admissions Contacts:
+        <div className="rounded-xl border border-[var(--neutral-200)] bg-white p-4">
+          <p className="text-xs font-semibold text-[var(--neutral-700)] mb-3">
+            Official SRM Admissions Contacts
           </p>
           <div className="space-y-2 text-xs text-[var(--neutral-600)]">
-            <div>
-              <span className="font-medium">Email:</span>{" "}
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-[var(--neutral-500)] w-12">Email</span>
               <a
                 href="mailto:admissions.ktr@srmist.edu.in"
                 className="text-[var(--srm-navy)] hover:underline"
@@ -376,18 +382,19 @@ function CannotAnswerMessage({ content }: { content: string }) {
                 admissions.ktr@srmist.edu.in
               </a>
             </div>
-            <div>
-              <span className="font-medium">Phone:</span> +91-44-2741-7777
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-[var(--neutral-500)] w-12">Phone</span>
+              <span>+91-44-2741-7777</span>
             </div>
-            <div>
-              <span className="font-medium">Website:</span>{" "}
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-[var(--neutral-500)] w-12">Web</span>
               <a
                 href="https://www.srmist.edu.in/admissions"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--srm-navy)] hover:underline"
               >
-                www.srmist.edu.in/admissions
+                srmist.edu.in/admissions
               </a>
             </div>
           </div>
@@ -400,14 +407,14 @@ function CannotAnswerMessage({ content }: { content: string }) {
 function LoadingMessage() {
   return (
     <div className="flex justify-start">
-      <div className="max-w-[85%] rounded-lg border border-[var(--neutral-200)] bg-white p-5">
+      <div className="max-w-[90%] sm:max-w-[85%] rounded-2xl rounded-bl-md border border-[var(--neutral-200)] bg-white p-4 sm:p-5 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="flex gap-1">
-            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]" style={{ animationDelay: "0ms" }} />
-            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]" style={{ animationDelay: "150ms" }} />
-            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]" style={{ animationDelay: "300ms" }} />
+          <div className="flex gap-1.5">
+            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]/70" style={{ animationDelay: "0ms" }} />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]/70" style={{ animationDelay: "150ms" }} />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]/70" style={{ animationDelay: "300ms" }} />
           </div>
-          <span className="text-sm text-[var(--neutral-600)]">Searching official sources...</span>
+          <span className="text-sm text-[var(--neutral-500)]">Searching official sources...</span>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { Globe, MapPin, Menu, X } from "lucide-react";
-import { Button } from "./ui/button";
 import {
   Select,
   SelectContent,
@@ -21,64 +20,57 @@ export function Header() {
     { value: "hi", label: "हिन्दी" },
   ];
 
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/chat", label: "Ask a Question" },
+    { path: "/admin", label: "Admin" },
+  ];
+
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[var(--neutral-200)] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-50 w-full border-b border-[var(--neutral-200)] bg-white/98 backdrop-blur-sm supports-[backdrop-filter]:bg-white/95">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 items-center justify-between">
           {/* Logo and Campus */}
-          <Link to="/" className="flex items-center gap-4">
+          <Link 
+            to="/" 
+            className="flex items-center gap-3 group"
+            aria-label="SRM Admissions Home"
+          >
             <div className="flex flex-col">
-              <span className="font-serif text-xl tracking-tight text-[var(--srm-navy)]" style={{ fontWeight: 600 }}>
+              <span className="font-serif text-lg tracking-tight text-[var(--srm-navy)] group-hover:text-[var(--srm-navy-light)] transition-colors" style={{ fontWeight: 600 }}>
                 SRM Admissions
               </span>
-              <span className="flex items-center gap-1 text-xs text-[var(--neutral-600)]">
-                <MapPin className="h-3 w-3" />
+              <span className="flex items-center gap-1 text-[10px] text-[var(--neutral-500)]">
+                <MapPin className="h-2.5 w-2.5" />
                 Kattankulathur Campus
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              to="/"
-              className={`text-sm transition-colors ${
-                isActive("/")
-                  ? "text-[var(--srm-navy)]"
-                  : "text-[var(--neutral-600)] hover:text-[var(--srm-navy)]"
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/chat"
-              className={`text-sm transition-colors ${
-                isActive("/chat")
-                  ? "text-[var(--srm-navy)]"
-                  : "text-[var(--neutral-600)] hover:text-[var(--srm-navy)]"
-              }`}
-            >
-              Ask a Question
-            </Link>
-            <Link
-              to="/admin"
-              className={`text-sm transition-colors ${
-                isActive("/admin")
-                  ? "text-[var(--srm-navy)]"
-                  : "text-[var(--neutral-600)] hover:text-[var(--srm-navy)]"
-              }`}
-            >
-              Admin
-            </Link>
-            <span className="text-[var(--neutral-300)]">•</span>
+          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  isActive(item.path)
+                    ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
+                    : "text-[var(--neutral-600)] hover:text-[var(--srm-navy)] hover:bg-[var(--neutral-100)]"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <span className="mx-2 h-4 w-px bg-[var(--neutral-200)]" aria-hidden="true" />
             <Link
               to="/nav"
-              className={`text-sm transition-colors ${
+              className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                 isActive("/nav")
-                  ? "text-[var(--srm-navy)]"
-                  : "text-[var(--neutral-600)] hover:text-[var(--srm-navy)]"
+                  ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
+                  : "text-[var(--neutral-500)] hover:text-[var(--srm-navy)] hover:bg-[var(--neutral-100)]"
               }`}
             >
               All Pages
@@ -86,10 +78,13 @@ export function Header() {
           </nav>
 
           {/* Language Selector */}
-          <div className="hidden md:flex items-center gap-3">
-            <Globe className="h-4 w-4 text-[var(--neutral-500)]" />
+          <div className="hidden md:flex items-center gap-2">
+            <Globe className="h-4 w-4 text-[var(--neutral-400)]" aria-hidden="true" />
             <Select value={language} onValueChange={setLanguage}>
-              <SelectTrigger className="w-[120px] border-[var(--neutral-200)]">
+              <SelectTrigger 
+                className="w-[100px] h-9 border-[var(--neutral-200)] text-sm"
+                aria-label="Select language"
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -104,8 +99,11 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-[var(--neutral-600)]"
+            className="md:hidden h-10 w-10 flex items-center justify-center rounded-lg text-[var(--neutral-600)] hover:bg-[var(--neutral-100)] transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -113,57 +111,43 @@ export function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-[var(--neutral-200)]">
-            <nav className="flex flex-col gap-4">
-              <Link
-                to="/"
-                className={`text-sm py-2 ${
-                  isActive("/")
-                    ? "text-[var(--srm-navy)]"
-                    : "text-[var(--neutral-600)]"
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/chat"
-                className={`text-sm py-2 ${
-                  isActive("/chat")
-                    ? "text-[var(--srm-navy)]"
-                    : "text-[var(--neutral-600)]"
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Ask a Question
-              </Link>
-              <Link
-                to="/admin"
-                className={`text-sm py-2 ${
-                  isActive("/admin")
-                    ? "text-[var(--srm-navy)]"
-                    : "text-[var(--neutral-600)]"
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Admin
-              </Link>
-              <span className="text-[var(--neutral-300)]">•</span>
+          <div 
+            id="mobile-menu"
+            className="md:hidden py-3 border-t border-[var(--neutral-200)] animate-in slide-in-from-top-2 duration-200"
+          >
+            <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive(item.path)
+                      ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
+                      : "text-[var(--neutral-600)] hover:bg-[var(--neutral-100)]"
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
               <Link
                 to="/nav"
-                className={`text-sm py-2 ${
+                className={`px-3 py-2.5 rounded-lg text-sm transition-colors ${
                   isActive("/nav")
-                    ? "text-[var(--srm-navy)]"
-                    : "text-[var(--neutral-600)]"
+                    ? "text-[var(--srm-navy)] bg-[var(--srm-navy)]/5"
+                    : "text-[var(--neutral-500)] hover:bg-[var(--neutral-100)]"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 All Pages
               </Link>
-              <div className="flex items-center gap-3 pt-2 border-t border-[var(--neutral-200)]">
-                <Globe className="h-4 w-4 text-[var(--neutral-500)]" />
+              <div className="flex items-center gap-2 mt-2 pt-3 border-t border-[var(--neutral-200)]">
+                <Globe className="h-4 w-4 text-[var(--neutral-400)]" aria-hidden="true" />
                 <Select value={language} onValueChange={setLanguage}>
-                  <SelectTrigger className="w-full border-[var(--neutral-200)]">
+                  <SelectTrigger 
+                    className="flex-1 h-10 border-[var(--neutral-200)]"
+                    aria-label="Select language"
+                  >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
