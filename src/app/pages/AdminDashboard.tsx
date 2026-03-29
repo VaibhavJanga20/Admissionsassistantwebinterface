@@ -192,7 +192,7 @@ export function AdminDashboard() {
       <div className="container mx-auto px-4 py-6 md:py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="mb-1 font-serif text-2xl md:text-3xl text-[var(--srm-navy)]" style={{ fontWeight: 600 }}>
+          <h1 className="mb-1 font-serif text-2xl md:text-3xl text-[var(--neutral-900)]" style={{ fontWeight: 600 }}>
             Admin Dashboard
           </h1>
           <p className="text-sm text-[var(--neutral-500)]">
@@ -205,12 +205,12 @@ export function AdminDashboard() {
           <Card className="border-[var(--neutral-200)] shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 pt-4 px-4">
               <CardTitle className="text-xs font-medium text-[var(--neutral-500)] uppercase tracking-wide">Total Queries</CardTitle>
-              <div className="h-8 w-8 rounded-lg bg-[var(--srm-navy)]/5 flex items-center justify-center">
-                <MessageSquare className="h-4 w-4 text-[var(--srm-navy)]" />
+              <div className="h-8 w-8 rounded-lg bg-[var(--srm-burgundy)]/5 flex items-center justify-center">
+                <MessageSquare className="h-4 w-4 text-[var(--srm-burgundy)]" />
               </div>
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold text-[var(--srm-navy)]">{stats.totalQueries.toLocaleString()}</div>
+              <div className="text-2xl font-bold text-[var(--neutral-900)]">{stats.totalQueries.toLocaleString()}</div>
               <p className="text-[11px] text-[var(--neutral-500)]">Last 30 days</p>
             </CardContent>
           </Card>
@@ -223,7 +223,7 @@ export function AdminDashboard() {
               </div>
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold text-[var(--srm-navy)]">{stats.avgResponseTime}</div>
+              <div className="text-2xl font-bold text-[var(--neutral-900)]">{stats.avgResponseTime}</div>
               <p className="text-[11px] text-[var(--confidence-high)] font-medium">-15% from last month</p>
             </CardContent>
           </Card>
@@ -236,7 +236,7 @@ export function AdminDashboard() {
               </div>
             </CardHeader>
             <CardContent className="px-4 pb-4">
-              <div className="text-2xl font-bold text-[var(--srm-navy)]">{stats.sourceAccuracy}</div>
+              <div className="text-2xl font-bold text-[var(--neutral-900)]">{stats.sourceAccuracy}</div>
               <p className="text-[11px] text-[var(--confidence-high)] font-medium">High confidence rate</p>
             </CardContent>
           </Card>
@@ -326,7 +326,7 @@ function ReviewCard({
   const typeConfig = {
     fee: { label: "Fee", color: "var(--srm-terracotta)" },
     deadline: { label: "Deadline", color: "var(--srm-amber)" },
-    policy: { label: "Policy", color: "var(--srm-navy)" },
+    policy: { label: "Policy", color: "var(--srm-burgundy)" },
     program: { label: "Program", color: "var(--confidence-high)" },
     scholarship: { label: "Scholarship", color: "#7C3AED" },
   };
@@ -361,7 +361,7 @@ function ReviewCard({
               {impact.label} Impact
             </span>
           </div>
-          <h3 className="font-sans text-base text-[var(--srm-navy)] mb-1" style={{ fontWeight: 600 }}>
+          <h3 className="font-sans text-base text-[var(--neutral-900)] mb-1" style={{ fontWeight: 600 }}>
             {item.title}
           </h3>
           <p className="text-sm text-[var(--neutral-600)] leading-relaxed">{item.description}</p>
@@ -388,7 +388,7 @@ function ReviewCard({
         )}
         <div>
           <p className="mb-0.5 text-[10px] font-medium text-[var(--neutral-500)] uppercase tracking-wide">New Value</p>
-          <p className="text-sm font-medium text-[var(--srm-navy)]">{item.newValue}</p>
+          <p className="text-sm font-medium text-[var(--neutral-900)]">{item.newValue}</p>
         </div>
       </div>
 
@@ -398,7 +398,7 @@ function ReviewCard({
           href={item.sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[var(--srm-navy)] hover:underline"
+          className="inline-flex items-center gap-1.5 text-[var(--srm-burgundy)] hover:underline"
         >
           <FileText className="h-3.5 w-3.5" />
           {item.source}

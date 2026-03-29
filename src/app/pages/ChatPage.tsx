@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router";
-import { Send, Sparkles, AlertCircle, ExternalLink, FileText, ChevronDown, ChevronUp } from "lucide-react";
+import { Send, AlertCircle, ExternalLink, FileText, ChevronDown, ChevronUp, MapPin } from "lucide-react";
 import { Header } from "../components/Header";
 import { Button } from "../components/ui/button";
 import { Textarea } from "../components/ui/textarea";
@@ -164,26 +164,28 @@ export function ChatPage() {
           <div className="container mx-auto h-full max-w-3xl px-4 py-6 md:py-8">
             {messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center">
-                <div className="mb-8 text-center">
-                  <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--srm-navy)]/5">
-                    <Sparkles className="h-7 w-7 text-[var(--srm-navy)]" />
+                <div className="mb-6 text-center">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--srm-burgundy)]/20 bg-[var(--srm-burgundy)]/5 px-4 py-2 text-sm text-[var(--srm-burgundy)]">
+                    <MapPin className="h-4 w-4" />
+                    Kattankulathur Campus Official
                   </div>
-                  <h2 className="mb-2 font-serif text-2xl md:text-3xl text-[var(--srm-navy)]" style={{ fontWeight: 600 }}>
-                    Ask Your Admission Question
+                  <h2 className="mb-3 font-serif text-3xl md:text-4xl text-[var(--neutral-900)]" style={{ fontWeight: 500 }}>
+                    Your Official{" "}
+                    <span className="italic text-[var(--srm-burgundy)]">Admissions</span>{" "}
+                    Guide
                   </h2>
-                  <p className="text-sm text-[var(--neutral-500)]">
-                    Get accurate answers from official SRM sources
+                  <p className="text-base text-[var(--neutral-600)] max-w-lg mx-auto">
+                    Ask anything about admissions, fees, eligibility, and scholarships. All answers are grounded strictly in official institutional documents.
                   </p>
                 </div>
 
-                <div className="w-full max-w-xl">
-                  <p className="mb-3 text-xs font-medium text-[var(--neutral-500)] uppercase tracking-wide">Try asking</p>
-                  <div className="grid gap-2 sm:grid-cols-2">
+                <div className="w-full max-w-xl mb-6">
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {suggestedQuestions.map((question, index) => (
                       <button
                         key={index}
                         onClick={() => setInput(question)}
-                        className="group rounded-lg border border-[var(--neutral-200)] bg-white p-3.5 text-left text-sm text-[var(--neutral-700)] transition-all duration-200 hover:border-[var(--srm-navy)] hover:text-[var(--srm-navy)] hover:shadow-sm"
+                        className="rounded-full border border-[var(--neutral-300)] bg-white px-4 py-2 text-sm text-[var(--neutral-700)] transition-all duration-200 hover:border-[var(--srm-burgundy)] hover:text-[var(--srm-burgundy)]"
                       >
                         {question}
                       </button>
@@ -230,7 +232,7 @@ export function ChatPage() {
               <Button
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isLoading}
-                className="bg-[var(--srm-navy)] hover:bg-[var(--srm-navy-light)] text-white self-end h-11 w-11 p-0 shadow-sm hover:shadow transition-all duration-200"
+                className="bg-[var(--srm-terracotta)] hover:bg-[var(--srm-terracotta-dark)] text-white self-end h-12 w-12 p-0 rounded-full shadow-md hover:shadow-lg transition-all duration-200"
                 aria-label="Send message"
               >
                 <Send className="h-5 w-5" />
@@ -249,8 +251,8 @@ export function ChatPage() {
 function UserMessage({ content }: { content: string }) {
   return (
     <div className="flex justify-end">
-      <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl rounded-br-md bg-[var(--srm-navy)] px-4 py-3 shadow-sm">
-        <p className="whitespace-pre-wrap text-sm leading-relaxed text-white">{content}</p>
+      <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl rounded-br-md bg-[var(--neutral-100)] border border-[var(--neutral-200)] px-4 py-3">
+        <p className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--neutral-800)]">{content}</p>
       </div>
     </div>
   );
@@ -304,7 +306,7 @@ function AssistantMessage({
           <div className="mt-4 border-t border-[var(--neutral-100)] pt-3">
             <button
               onClick={() => setSourcesExpanded(!sourcesExpanded)}
-              className="flex w-full items-center justify-between text-xs font-medium text-[var(--srm-navy)] hover:text-[var(--srm-navy-light)] transition-colors"
+              className="flex w-full items-center justify-between text-xs font-medium text-[var(--srm-burgundy)] hover:text-[var(--srm-burgundy-light)] transition-colors"
             >
               <span className="flex items-center gap-1.5">
                 <FileText className="h-3.5 w-3.5" />
@@ -325,17 +327,17 @@ function AssistantMessage({
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-start gap-2.5 rounded-lg border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-2.5 transition-all duration-200 hover:border-[var(--srm-navy)] hover:bg-white"
+                    className="group flex items-start gap-2.5 rounded-lg border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-2.5 transition-all duration-200 hover:border-[var(--srm-burgundy)] hover:bg-white"
                   >
                     <div className="mt-0.5 flex-shrink-0">
                       {source.type === "pdf" ? (
                         <FileText className="h-4 w-4 text-[var(--srm-terracotta)]" />
                       ) : (
-                        <ExternalLink className="h-4 w-4 text-[var(--srm-navy)]" />
+                        <ExternalLink className="h-4 w-4 text-[var(--srm-burgundy)]" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-[var(--neutral-800)] group-hover:text-[var(--srm-navy)] transition-colors truncate">
+                      <p className="text-xs font-medium text-[var(--neutral-800)] group-hover:text-[var(--srm-burgundy)] transition-colors truncate">
                         {source.title}
                       </p>
                       {source.lastUpdated && (
@@ -377,7 +379,7 @@ function CannotAnswerMessage({ content }: { content: string }) {
               <span className="font-medium text-[var(--neutral-500)] w-12">Email</span>
               <a
                 href="mailto:admissions.ktr@srmist.edu.in"
-                className="text-[var(--srm-navy)] hover:underline"
+                className="text-[var(--srm-burgundy)] hover:underline"
               >
                 admissions.ktr@srmist.edu.in
               </a>
@@ -392,7 +394,7 @@ function CannotAnswerMessage({ content }: { content: string }) {
                 href="https://www.srmist.edu.in/admissions"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--srm-navy)] hover:underline"
+                className="text-[var(--srm-burgundy)] hover:underline"
               >
                 srmist.edu.in/admissions
               </a>
@@ -410,9 +412,9 @@ function LoadingMessage() {
       <div className="max-w-[90%] sm:max-w-[85%] rounded-2xl rounded-bl-md border border-[var(--neutral-200)] bg-white p-4 sm:p-5 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="flex gap-1.5">
-            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]/70" style={{ animationDelay: "0ms" }} />
-            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]/70" style={{ animationDelay: "150ms" }} />
-            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-navy)]/70" style={{ animationDelay: "300ms" }} />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-burgundy)]/60" style={{ animationDelay: "0ms" }} />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-burgundy)]/60" style={{ animationDelay: "150ms" }} />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-[var(--srm-burgundy)]/60" style={{ animationDelay: "300ms" }} />
           </div>
           <span className="text-sm text-[var(--neutral-500)]">Searching official sources...</span>
         </div>

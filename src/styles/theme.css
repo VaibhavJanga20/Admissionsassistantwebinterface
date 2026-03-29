@@ -8,17 +8,26 @@
   
   --font-size: 16px;
   
-  /* SRM Brand Colors - Institutional Palette */
-  --srm-navy: #0F2340;
-  --srm-navy-light: #1A3557;
-  --srm-navy-dark: #081425;
+  /* SRM Brand Colors - Burgundy/Maroon Institutional Palette */
+  --srm-burgundy: #8B1538;
+  --srm-burgundy-light: #A91D45;
+  --srm-burgundy-dark: #6D102C;
   
-  --srm-terracotta: #D84315;
-  --srm-terracotta-light: #E57368;
-  --srm-terracotta-dark: #B8340F;
+  /* Legacy navy alias - maps to burgundy for compatibility */
+  --srm-navy: #8B1538;
+  --srm-navy-light: #A91D45;
+  --srm-navy-dark: #6D102C;
   
-  --srm-amber: #F57C00;
-  --srm-amber-light: #FFA726;
+  --srm-teal: #008B8B;
+  --srm-teal-light: #00A5A5;
+  --srm-teal-dark: #006666;
+  
+  --srm-terracotta: #E57373;
+  --srm-terracotta-light: #EF9A9A;
+  --srm-terracotta-dark: #D84315;
+  
+  --srm-amber: #F5A623;
+  --srm-amber-light: #FFB74D;
   --srm-amber-dark: #E65100;
   
   /* Neutral Palette */
@@ -39,20 +48,20 @@
   --confidence-low: #DC2626;
   
   /* System Colors */
-  --background: var(--neutral-50);
+  --background: #FAFBFC;
   --foreground: var(--neutral-900);
   --card: #ffffff;
   --card-foreground: var(--neutral-900);
   --popover: #ffffff;
   --popover-foreground: var(--neutral-900);
-  --primary: var(--srm-navy);
+  --primary: var(--srm-burgundy);
   --primary-foreground: #ffffff;
-  --secondary: var(--srm-terracotta);
+  --secondary: var(--srm-teal);
   --secondary-foreground: #ffffff;
   --muted: var(--neutral-100);
   --muted-foreground: var(--neutral-600);
-  --accent: var(--srm-amber-light);
-  --accent-foreground: var(--neutral-900);
+  --accent: var(--srm-terracotta);
+  --accent-foreground: #ffffff;
   --destructive: #DC2626;
   --destructive-foreground: #ffffff;
   --border: var(--neutral-200);
@@ -61,7 +70,7 @@
   --switch-background: var(--neutral-300);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: var(--srm-navy);
+  --ring: var(--srm-burgundy);
   
   /* Chart colors */
   --chart-1: oklch(0.646 0.222 41.116);

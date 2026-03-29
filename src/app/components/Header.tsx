@@ -39,11 +39,10 @@ export function Header() {
             aria-label="SRM Admissions Home"
           >
             <div className="flex flex-col">
-              <span className="font-serif text-lg tracking-tight text-[var(--srm-navy)] group-hover:text-[var(--srm-navy-light)] transition-colors" style={{ fontWeight: 600 }}>
-                SRM Admissions
+              <span className="font-serif text-lg tracking-tight text-[var(--neutral-800)] group-hover:text-[var(--srm-burgundy)] transition-colors" style={{ fontWeight: 600 }}>
+                Admissions Helper
               </span>
-              <span className="flex items-center gap-1 text-[10px] text-[var(--neutral-500)]">
-                <MapPin className="h-2.5 w-2.5" />
+              <span className="flex items-center gap-1 text-[10px] font-semibold tracking-wide text-[var(--srm-teal)] uppercase">
                 Kattankulathur Campus
               </span>
             </div>
